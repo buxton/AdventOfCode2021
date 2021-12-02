@@ -1,15 +1,17 @@
 import Foundation
 
+// --- Day 1: Sonar Sweep ---
+
 // MARK: Functions
-public func readValues() throws -> [Int] {
-    guard let fileUrl = Bundle.main.url(forResource: "Day1-input", withExtension: "txt") else { fatalError() }
+func readValues() throws -> [Int] {
+    guard let fileUrl = Bundle.main.url(forResource: "input", withExtension: "txt") else { fatalError() }
 
     let input = try String(contentsOf: fileUrl)
 
     return input.split(whereSeparator: \.isNewline).compactMap { Int($0) }
 }
 
-public func summedValues(list: [Int]) -> Int {
+func summedValues(list: [Int]) -> Int {
     var increaseCount = 0
     var lastValue = list.first
 
@@ -24,7 +26,7 @@ public func summedValues(list: [Int]) -> Int {
     return increaseCount
 }
 
-public func windowedValues(list: [Int], window: Int) -> [Int] {
+func windowedValues(list: [Int], window: Int) -> [Int] {
     var result: [Int] = []
 
     for (startIndex, _) in list.enumerated() {
@@ -40,3 +42,16 @@ public func windowedValues(list: [Int], window: Int) -> [Int] {
 
     return result
 }
+
+// MARK: Answers
+print("Day 1")
+let depthValues = try readValues()
+
+// Part 1
+let partOne = summedValues(list: depthValues)
+print("Part 1 = \(partOne)")
+
+// Part 2
+let windowedDepthValues = windowedValues(list: depthValues, window: 3)
+let partTwo = summedValues(list: windowedDepthValues)
+print("Part 2 = \(partTwo)")
